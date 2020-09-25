@@ -42,8 +42,8 @@ class MatchesAdapter(val playerId: Int, val itemClick: (MatchDetails) -> Unit) :
             view.apply {
                 tvP1.text = item.player1.player.name
                 tvP2.text = item.player2.player.name
-                val p1Score = item.player1.score
-                val p2Score = item.player2.score
+                val p1Score = item.p1Score
+                val p2Score = item.p2Score
                 tvScore.text = "${p1Score} - ${p2Score}"
 
                 if(p1Score == p2Score) {
@@ -53,7 +53,8 @@ class MatchesAdapter(val playerId: Int, val itemClick: (MatchDetails) -> Unit) :
                             R.color.white
                         )
                     )
-                } else if (p1Score > p2Score && item.player1.player.id == playerId) {
+                } else if ((p1Score > p2Score && item.player1.player.id == playerId) ||
+                    (p1Score < p2Score && item.player2.player.id == playerId)) {
                     container.setBackgroundColor(
                         ContextCompat.getColor(
                             view.root.context,

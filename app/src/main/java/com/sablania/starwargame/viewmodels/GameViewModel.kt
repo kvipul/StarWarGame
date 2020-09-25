@@ -54,12 +54,15 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         matchList.forEach { match ->
             val p1 = match.player1
             val p2 = match.player2
+
             if (playerId == p1.id || playerId == p2.id) {
                 list.add(
                     MatchDetails(
                         match.match,
                         map[match.player1.id]!!,
-                        map[match.player2.id]!!
+                        map[match.player2.id]!!,
+                        match.player1.score,
+                        match.player2.score
                     )
                 )
             }
