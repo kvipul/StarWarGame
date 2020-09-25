@@ -4,42 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:id="@+id/container">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_thumbnail"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:padding="12dp">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_p1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_score"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".4"
+            tools:text="Vipul " />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_score"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
+            android:gravity="center"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_points"
-            app:layout_constraintStart_toEndOf="@+id/iv_thumbnail"
+            app:layout_constraintEnd_toStartOf="@+id/tv_p2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_p1"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".2"
             tools:text="Vipul kumar" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_points"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_p2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="end"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_score"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".35"
             tools:text="25" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

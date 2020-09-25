@@ -4,7 +4,7 @@ class Game {
 
 }
 
-data class PlayerDetail(val player: Player, val score: Int)
+data class PlayerDetail(val player: Player, var score: Int)
 
 data class Player(val id: Int, val name: String, val icon: String)
 

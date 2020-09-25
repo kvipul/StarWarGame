@@ -9,22 +9,27 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sablania.starwargame.R
-import com.sablania.starwargame.adapters.PlayersAdapter
-import com.sablania.starwargame.databinding.FragmentPlayersBinding
+import com.sablania.starwargame.adapters.MatchesAdapter
+import com.sablania.starwargame.databinding.FragmentMatchesBinding
 import com.sablania.starwargame.viewmodels.GameViewModel
 
-class PlayersFragment : Fragment() {
-    private lateinit var binding: FragmentPlayersBinding
+class MatchesFragment : Fragment() {
+    private lateinit var binding: FragmentMatchesBinding
     private lateinit var gameViewModel: GameViewModel
-    private lateinit var playersAdapter: PlayersAdapter
+    private lateinit var matchesAdapter: MatchesAdapter
+    private var playerId = -1
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        playerId = arguments!!.getInt(ID)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPlayersBinding.inflate(inflater, container, false)
+        binding = FragmentMatchesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,16 +42,12 @@ class PlayersFragment : Fragment() {
 
     private fun initView() {
         binding.apply {
-            playersAdapter = PlayersAdapter(){
-                val fragment: Fragment = MatchesFragment.newInstance(it.player.id)
-                parentFragmentManager.beginTransaction()
-                    .add(R.id.content_frame, fragment, MatchesFragment.TAG)
-                    .addToBackStack(MatchesFragment.TAG)
-                    .commitAllowingStateLoss()
+            matchesAdapter = MatchesAdapter() {
+
             }
-            rvPlayers.adapter = playersAdapter
-            rvPlayers.layoutManager = LinearLayoutManager(context)
-            rvPlayers.addItemDecoration(
+            rvMatches.adapter = matchesAdapter
+            rvMatches.layoutManager = LinearLayoutManager(context)
+            rvMatches.addItemDecoration(
                 DividerItemDecoration(
                     context,
                     DividerItemDecoration.VERTICAL
@@ -60,17 +61,21 @@ class PlayersFragment : Fragment() {
             activity!!.viewModelStore,
             ViewModelProvider.AndroidViewModelFactory(activity!!.application)
         ).get(GameViewModel::class.java)
-        gameViewModel.playersLiveData.observe(viewLifecycleOwner, Observer {
-            playersAdapter.setData(it)
+        gameViewModel.matchesLiveData.observe(viewLifecycleOwner, Observer {
+            matchesAdapter.setData(it)
         })
 
-        gameViewModel.init()
-        gameViewModel.fetchPlayersData()
+        gameViewModel.fetchMatchData(playerId)
     }
 
 
     companion object {
-        val TAG = PlayersFragment::class.java.simpleName
-        fun newInstance(): PlayersFragment = PlayersFragment()
+        val TAG = MatchesFragment::class.java.simpleName
+        const val ID = "ID"
+        fun newInstance(playerId: Int): MatchesFragment = MatchesFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ID, playerId)
+            }
+        }
     }
 }

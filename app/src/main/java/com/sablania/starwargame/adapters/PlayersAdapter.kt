@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.sablania.starwargame.databinding.ItemPlayersBinding
 import com.sablania.starwargame.pojos.PlayerDetail
 
-class PlayersAdapter : RecyclerView.Adapter<PlayersAdapter.PlayersViewHolder>() {
+class PlayersAdapter(val itemClick: (PlayerDetail) -> Unit) : RecyclerView.Adapter<PlayersAdapter.PlayersViewHolder>() {
 
     private val list = ArrayList<PlayerDetail>()
 
@@ -33,12 +33,15 @@ class PlayersAdapter : RecyclerView.Adapter<PlayersAdapter.PlayersViewHolder>() 
         holder.bind(list[position])
     }
 
-    class PlayersViewHolder(val view: ItemPlayersBinding) : RecyclerView.ViewHolder(view.root) {
+    inner class PlayersViewHolder(val view: ItemPlayersBinding) : RecyclerView.ViewHolder(view.root) {
         fun bind(item: PlayerDetail) {
             view.apply {
                 tvName.text = item.player.name
                 tvPoints.text = item.score.toString()
                 Glide.with(root.context).load(item.player.icon).into(ivThumbnail)
+                container.setOnClickListener {
+                    itemClick(item)
+                }
             }
         }
     }

@@ -16,6 +16,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private val map = HashMap<Int, PlayerDetail>()
 
     val playersLiveData = MutableLiveData<ArrayList<PlayerDetail>>()
+    val matchesLiveData = MutableLiveData<ArrayList<Match>>()
 
     fun init() {
         playerList = gameRepository.fetchPlayers()
@@ -23,6 +24,18 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
         for (player in playerList) {
             map[player.id] = PlayerDetail(player, 0)
+        }
+        for (match in matchList) {
+            val p1 = match.player1
+            val p2 = match.player2
+            if (p1.score == p2.score) {
+                map[p1.id]!!.score += 1
+                map[p2.id]!!.score += 1
+            } else if (p1.score > p2.score) {
+                map[p1.id]!!.score += 3
+            } else {
+                map[p2.id]!!.score += 3
+            }
         }
     }
 
@@ -33,6 +46,18 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             list.add(it)
         }
         playersLiveData.postValue(list)
+    }
+
+    fun fetchMatchData(playerId: Int) {
+        val list = ArrayList<Match>()
+        matchList.forEach {match ->
+            val p1 = match.player1
+            val p2 = match.player2
+            if (playerId == p1.id || playerId == p2.id) {
+                list.add(match)
+            }
+        }
+        matchesLiveData.postValue(list)
     }
 
 }
