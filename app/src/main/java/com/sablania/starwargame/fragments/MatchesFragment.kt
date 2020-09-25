@@ -42,7 +42,7 @@ class MatchesFragment : Fragment() {
 
     private fun initView() {
         binding.apply {
-            matchesAdapter = MatchesAdapter() {
+            matchesAdapter = MatchesAdapter(playerId) {
 
             }
             rvMatches.adapter = matchesAdapter
