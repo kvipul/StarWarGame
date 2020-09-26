@@ -16,6 +16,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var matchList: ArrayList<Match>
     private val map = HashMap<Int, PlayerDetail>()
 
+    //can be exposed as livedata instead of mutablelivedata
     val playersLiveData = MutableLiveData<ArrayList<PlayerDetail>>()
     val matchesLiveData = MutableLiveData<ArrayList<MatchDetails>>()
 

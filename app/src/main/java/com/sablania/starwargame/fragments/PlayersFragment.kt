@@ -38,6 +38,8 @@ class PlayersFragment : Fragment() {
     private fun initView() {
         binding.apply {
             playersAdapter = PlayersAdapter(){
+
+                //it could have been better, in the activity
                 val fragment: Fragment = MatchesFragment.newInstance(it.player.id)
                 parentFragmentManager.beginTransaction()
                     .add(R.id.content_frame, fragment, MatchesFragment.TAG)

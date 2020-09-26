@@ -44,7 +44,7 @@ class MatchesAdapter(val playerId: Int, val itemClick: (MatchDetails) -> Unit) :
                 tvP2.text = item.player2.player.name
                 val p1Score = item.p1Score
                 val p2Score = item.p2Score
-                tvScore.text = "${p1Score} - ${p2Score}"
+                tvScore.text = "$p1Score - $p2Score"
 
                 if(p1Score == p2Score) {
                     container.setBackgroundColor(
